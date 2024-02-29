@@ -10,7 +10,7 @@ from utils.states import Dialog
 from utils.buttons import admin_buttons, add_buttons
 from utils.api_requests import API
 
-@rate_limit(5, "add")
+
 @dp.message_handler(IsAdmin(), text="Добавить обои")
 async def add_wallpapers(message: types.Message):
     await message.reply("Отправь фото:", reply_markup=add_buttons(["Отмена"]))
@@ -49,7 +49,6 @@ name: {json["imageName"]}""", reply_markup=admin_buttons())
         await state.finish()
 
 
-@rate_limit(5, "delete")
 @dp.message_handler(IsAdmin(), text="Удалить обои")
 async def delete_wallpapers(message: types.Message):
     await message.reply("Отправь название фото:", reply_markup=add_buttons(["Отмена"]))
