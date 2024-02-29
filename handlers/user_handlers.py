@@ -6,13 +6,13 @@ from config import URL, ADMIN
 from utils.api_requests import API
 
 
-@rate_limit(3, "start")
+@rate_limit(2, "start")
 @dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
     await message.reply(f"Привет! Я бот с обоями клеш рояль, {URL}", reply_markup=user_buttons() if message.from_user.id != int(ADMIN) else admin_buttons())
 
 
-@rate_limit(3, "random")
+@rate_limit(2, "random")
 @dp.message_handler(text="Случайные обои")
 async def send_random_wallpaper(message: types.Message):
     msg = await message.reply(f'Загрузка...')
@@ -33,7 +33,7 @@ async def send_random_wallpaper(message: types.Message):
     await msg.edit_text(f"Ошибка {code_url}!")
 
 
-@rate_limit(3, "all")
+@rate_limit(2, "all")
 @dp.message_handler(text="Все обои")
 async def send_all_wallpapers(message: types.Message):
     wallpapers_all = eval(API().get_all_urls())
